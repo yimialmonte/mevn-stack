@@ -1,10 +1,10 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const { databaseUrl } = require('../config/index')
+import Express from 'express'
+import Mongoose from 'mongoose'
+import config from '../config'
 
-mongoose.connect(databaseUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+Mongoose.connect(config.databaseUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 
-const app = express()
+const app = Express()
 
 app.listen(3000, () => {
     console.log('Server started succesfully')
