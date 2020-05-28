@@ -1,3 +1,3 @@
 <template>
-  <h1>Main Component</h1>
+  <h1 class="text-center text-teal">Main Component</h1>
 </template>

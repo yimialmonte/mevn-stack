@@ -33,7 +33,8 @@ module.exports = {
         test: /\.css$/,
         use: [
           MiniExtraCssPlugin.loader,
-          'css-loader'
+          'css-loader',
+          'postcss-loader'
         ]
       }
     ]
