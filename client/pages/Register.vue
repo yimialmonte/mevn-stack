@@ -1,3 +1,3 @@
 <template>
-  <h1>Register</h1>
+  <h1>Sign ups</h1>
 </template>

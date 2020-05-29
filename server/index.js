@@ -1,10 +1,11 @@
 import Express from 'express'
-import Mongoose from 'mongoose'
+import Mongoose, { PromiseProvider } from 'mongoose'
 import path from 'path'
 import config from '@config'
 import v1Router from '@routes'
 import Webpack from 'webpack'
 import WebpackConfig from '../webpack.config'
+import WebpackHotMiddleware from 'webpack-hot-middleware'
 import WebpackMiddleware from 'webpack-dev-middleware'
 
 Mongoose.connect(config.databaseUrl, {
@@ -15,7 +16,12 @@ Mongoose.connect(config.databaseUrl, {
 const app = Express()
 
 const compiler = Webpack(WebpackConfig)
-app.use(WebpackMiddleware(compiler))
+app.use(WebpackMiddleware(compiler, {
+  hot: true,
+  publicPath: WebpackConfig.output.publicPath
+}))
+
+app.use(WebpackHotMiddleware(compiler))
 
 app.use(v1Router)
 
