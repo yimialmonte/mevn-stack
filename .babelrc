@@ -1,18 +1,20 @@
 {
-  "presets": [
-    "@babel/preset-env"
-  ],
+  "presets": ["@babel/preset-env"],
 
   "plugins": [
-    ["module-resolver", {
-      "root": ["./"],
-      "alias": {
-        "@": "./",
-        "@pages": "./client/pages",
-        "@controllers": "./server/controllers",
-        "@config": "./server/config",
-        "@routes": "./server/routes"
+    [
+      "module-resolver",
+      {
+        "root": ["./"],
+        "alias": {
+          "@": "./",
+          "@components": "./client/components",
+          "@pages": "./client/pages",
+          "@controllers": "./server/controllers",
+          "@config": "./server/config",
+          "@routes": "./server/routes"
+        }
       }
-    }]
+    ]
   ]
 }
