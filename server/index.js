@@ -1,5 +1,6 @@
 import Express from 'express'
 import Mongoose, { PromiseProvider } from 'mongoose'
+import BodyParser from 'body-parser'
 import path from 'path'
 import config from '@config'
 import v1Router from '@routes'
@@ -15,11 +16,15 @@ Mongoose.connect(config.databaseUrl, {
 
 const app = Express()
 
+app.use(BodyParser.json())
+
 const compiler = Webpack(WebpackConfig)
-app.use(WebpackMiddleware(compiler, {
-  hot: true,
-  publicPath: WebpackConfig.output.publicPath
-}))
+app.use(
+  WebpackMiddleware(compiler, {
+    hot: true,
+    publicPath: WebpackConfig.output.publicPath
+  })
+)
 
 app.use(WebpackHotMiddleware(compiler))
 
