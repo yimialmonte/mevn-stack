@@ -27,12 +27,12 @@
           name="password"
           :error="errors.first('password')"
         ></text-input>
-        <button
-          class="w-full mt-3 text-lg py-3 bg-emerald text-white rounded-sm focus:outline-none hover:bg-emerald-lighter"
+        <btn
+          label="Sign up"
+          :disabled="loading"
+          :loading="loading"
           @click="register"
-        >
-          Sign Up
-        </button>
+        />
       </div>
     </div>
   </div>
@@ -43,6 +43,7 @@ import { POST_REGISTER } from '@store/auth/actions'
 
 export default {
   data: () => ({
+    loading: false,
     model: {
       name: '',
       email: '',
@@ -54,8 +55,17 @@ export default {
       this.$validator.validate().then(isValid => {
         if (!isValid) return
 
-        this.$store.dispatch(POST_REGISTER, this.model)
+        this.toggleLoading()
+
+        this.$store.dispatch(POST_REGISTER, this.model).then(() => {
+          this.toggleLoading()
+
+          this.$router.push('/')
+        })
       })
+    },
+    toggleLoading() {
+      this.loading = !this.loading
     }
   }
 }
