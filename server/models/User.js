@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import jwt from 'jsonwebtoken'
 import Bycrypt from 'bcryptjs'
 import RandomString from 'randomstring'
 import Mail from '@fullstackjs/mail'
@@ -38,5 +39,9 @@ UserSchema.post('save', async function() {
     })
     .send()
 })
+
+UserSchema.methods.generateToken = function() {
+  return jwt.sign({ id: this._id }, config.jwtSecret)
+}
 
 export default new mongoose.model('User', UserSchema)
