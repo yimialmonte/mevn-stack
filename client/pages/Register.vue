@@ -57,15 +57,27 @@ export default {
 
         this.toggleLoading()
 
-        this.$store.dispatch(POST_REGISTER, this.model).then(response => {
-          this.toggleLoading()
+        this.$store
+          .dispatch(POST_REGISTER, this.model)
+          .then(response => {
+            this.toggleLoading()
 
-          localStorage.setItem('auth', JSON.stringify(response.data))
+            localStorage.setItem('auth', JSON.stringify(response.data))
 
-          this.$store.commit(SET_AUTH, response.data)
+            this.$store.commit(SET_AUTH, response.data)
 
-          this.$router.push('/')
-        })
+            this.$router.push('/')
+          })
+          .catch(error => {
+            this.toggleLoading()
+
+            Object.keys(error.response.data).forEach(field => {
+              this.errors.add({
+                field,
+                msg: error.response.data[field]
+              })
+            })
+          })
       })
     },
     toggleLoading() {

@@ -12,6 +12,8 @@
           "@store": "./client/store",
           "@components": "./client/components",
           "@pages": "./client/pages",
+          "@server": "./server",
+          "@validators": "./server/validators",
           "@controllers": "./server/controllers",
           "@config": "./server/config",
           "@routes": "./server/routes",
