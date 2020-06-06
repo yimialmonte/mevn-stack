@@ -8,9 +8,11 @@ import TextInput from '@components/TextInput.vue'
 import Button from '@components/Button.vue'
 import Loader from '@components/Loader.vue'
 import Validtor from 'vee-validate'
+import authMixin from '@client/mixins/auth'
 
 Vue.use(Router)
 Vue.use(Validtor)
+Vue.mixin(authMixin)
 Vue.component('text-input', TextInput)
 Vue.component('btn', Button)
 Vue.component('loader', Loader)
