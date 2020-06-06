@@ -10,6 +10,6 @@ const LogingSchema = Yup.object().shape({
 })
 
 export default (req, res, next) =>
-  LogingSchema.validate()
+  LogingSchema.validate(req.body)
     .then(() => next())
     .catch(error => res.status(422).json({ [error.path]: error.message }))
