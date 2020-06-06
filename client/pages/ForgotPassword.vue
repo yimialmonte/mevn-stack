@@ -1,7 +1,7 @@
 <template>
   <div class="container w-full mx-auto my-16">
     <div class="max-w-xs mx-auto">
-      <h2 class="text-center text-gold">Login</h2>
+      <h2 class="text-center text-gold">Reset Password</h2>
       <div class="w-full bg-white shadow mt-5 rounded-sm p-8">
         <text-input
           placeholder="Enter your email"
@@ -11,27 +11,11 @@
           :error="errors.first('email')"
         >
         </text-input>
-        <text-input
-          placeholder="Enter your password"
-          type="password"
-          v-validate="'required|min:6'"
-          v-model="model.password"
-          name="password"
-          :error="errors.first('password')"
-        ></text-input>
-        <div class="my-8 flex justify-center items-center">
-          <router-link
-            to="/auth/passwords/email"
-            class="no-underline text-brown"
-          >
-            Forgot Password?
-          </router-link>
-        </div>
         <btn
-          label="Sign in"
+          label="Send Password Link"
           :disabled="loading"
           :loading="loading"
-          @click="login"
+          @click="forgotPassword"
         />
       </div>
     </div>
@@ -40,28 +24,27 @@
 
 <script>
 import formMixing from '@mixins/form'
-import { POST_LOGIN, SET_AUTH } from '@store/auth/actions'
+import { POST_FORGOT_PASSWORD } from '@store/auth/actions'
 
 export default {
   mixins: [formMixing],
   data: () => ({
     model: {
-      email: '',
-      password: ''
+      email: ''
     }
   }),
   methods: {
-    login() {
+    forgotPassword() {
       this.$validator.validate().then(isValid => {
         if (!isValid) return
 
         this.toggleLoading()
 
         this.$store
-          .dispatch(POST_LOGIN, this.model)
+          .dispatch(POST_FORGOT_PASSWORD, this.model)
           .then(response => {
             this.toggleLoading()
-            this.setAuth(response.data)
+            this.$router.push('/')
           })
           .catch(error => {
             this.toggleLoading()

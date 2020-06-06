@@ -2,6 +2,7 @@ import Router from 'vue-router'
 import Login from '@pages/Login.vue'
 import Register from '@pages/Register.vue'
 import Home from '@pages/Home.vue'
+import ForgotPassword from '@pages/ForgotPassword.vue'
 
 export default new Router({
   mode: 'history',
@@ -17,6 +18,10 @@ export default new Router({
     {
       path: '/',
       component: Home
+    },
+    {
+      path: '/auth/passwords/email',
+      component: ForgotPassword
     }
   ]
 })
