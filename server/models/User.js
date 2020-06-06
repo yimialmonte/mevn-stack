@@ -44,4 +44,8 @@ UserSchema.methods.generateToken = function() {
   return jwt.sign({ id: this._id }, config.jwtSecret)
 }
 
+UserSchema.methods.comparePasswords = function(plainPassword) {
+  return Bycrypt.compareSync(plainPassword, this.password)
+}
+
 export default new mongoose.model('User', UserSchema)
