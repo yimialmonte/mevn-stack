@@ -39,11 +39,12 @@
 </template>
 
 <script>
+import formMixing from '@mixins/form'
 import { POST_REGISTER, SET_AUTH } from '@store/auth/actions'
 
 export default {
+  mixins: [formMixing],
   data: () => ({
-    loading: false,
     model: {
       name: '',
       email: '',
@@ -79,9 +80,6 @@ export default {
             })
           })
       })
-    },
-    toggleLoading() {
-      this.loading = !this.loading
     }
   }
 }
