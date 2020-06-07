@@ -4,7 +4,7 @@ import Bycrypt from 'bcryptjs'
 import RandomString from 'randomstring'
 import Mail from '@fullstackjs/mail'
 import config from '@config'
-
+import PasswordReset from '@models/PasswordReset'
 const UserSchema = new mongoose.Schema({
   name: String,
 
@@ -46,6 +46,25 @@ UserSchema.methods.generateToken = function() {
 
 UserSchema.methods.comparePasswords = function(plainPassword) {
   return Bycrypt.compareSync(plainPassword, this.password)
+}
+
+UserSchema.methods.forgotPassword = async function() {
+  const token = RandomString.generate(72)
+
+  await PasswordReset.create({
+    token,
+    email: this.email,
+    createdAt: new Date()
+  })
+
+  await new Mail('forgot-password')
+    .to(this.email, this.name)
+    .subject('Password Reset')
+    .data({
+      url: `${config.url}/auth/passwords/reset/${token}`,
+      name: this.name
+    })
+    .send()
 }
 
 export default new mongoose.model('User', UserSchema)
