@@ -11,7 +11,8 @@ import WebpackMiddleware from 'webpack-dev-middleware'
 
 Mongoose.connect(config.databaseUrl, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useFindAndModify: false
 })
 
 const app = Express()
