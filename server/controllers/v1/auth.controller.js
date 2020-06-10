@@ -69,11 +69,17 @@ const confirmEmail = async (req, res) => {
     },
     {
       emailConfirmCode: null,
-      emailConfirmedAt: new Date()
+      emailConfirmAt: new Date()
     },
-
     { new: true }
   )
+
+  const token = user.generateToken()
+
+  return res.json({
+    user,
+    token
+  })
 }
 
 export default {

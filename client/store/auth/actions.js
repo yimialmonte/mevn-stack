@@ -12,6 +12,8 @@ export const POST_FORGOT_PASSWORD = 'POST_FORGOT_PASSWORD'
 
 export const POST_RESET_PASSWORD = 'POST_RESET_PASSWORD'
 
+export const POST_CONFIRM_EMAIL = 'POST_CONFIRM_EMAIL'
+
 export default {
   [POST_REGISTER]: (context, data) => client.post('auth/register', data),
 
@@ -21,5 +23,8 @@ export default {
     client.post('auth/passwords/email', data),
 
   [POST_RESET_PASSWORD]: (context, data) =>
-    client.post('auth/passwords/reset', data)
+    client.post('auth/passwords/reset', data),
+
+  [POST_CONFIRM_EMAIL]: (context, data) =>
+    client.post('auth/emails/confirm', data)
 }
