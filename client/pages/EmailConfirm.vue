@@ -8,9 +8,17 @@
 import { POST_CONFIRM_EMAIL } from '@store/auth/actions'
 export default {
   mounted() {
-    this.$store.dispatch(POST_CONFIRM_EMAIL, {
-      token: this.$route.params.token
-    })
+    this.$store
+      .dispatch(POST_CONFIRM_EMAIL, {
+        token: this.$route.params.token
+      })
+      .then(resonse => {
+        this.setAuth(resonse.data)
+      })
+      .catch(() => {
+        // TODO: Flash message
+        this.$router.push('/')
+      })
   }
 }
 </script>

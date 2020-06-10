@@ -9,11 +9,8 @@ export default async (req, res, next) => {
   const { token } = req.body
 
   try {
-    console.log('before')
     await EmailConfirmSchema.validate({ token })
-    console.log('after')
     const user = await User.findOne({ emailConfirmCode: token })
-
     if (!user) {
       throw new Yup.ValidationError('Invalid Confirm code', req.body, 'token')
     }
