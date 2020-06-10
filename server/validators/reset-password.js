@@ -20,7 +20,19 @@ export default async (req, res, next) => {
       throw new Yup.ValidationError('Invalid reset token', req.body, 'password')
     }
 
+    const timeInMinutes = Math.ceil(
+      (new Date().getTime() - new Date(existingReset.createdAt).getTime()) /
+        60000
+    )
+
     const user = await User.findOne({ email: existingReset.email })
+
+    if (timeInMinutes > 5) {
+      await ForgotPassword.findOneAndDelete({ token })
+
+      throw new Yup.ValidationError('Token expired', req.body, 'password')
+    }
+
     req.user = user
 
     return next()
