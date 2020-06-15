@@ -1,5 +1,16 @@
 <template>
   <div>
+    <div
+      class="w-full h-12 text-brown bg-gold-lightest flex items-center justify-center"
+    >
+      Please confirm your email address. Did not receive an email?
+      <span
+        @click="resendEmailConfirm"
+        class="cursor-pointer ml-2 border-b-2 border-brown hover:text-brown-darkest"
+      >
+        Click here to resend email.
+      </span>
+    </div>
     <div class="h-2 w-full bg-gold-light"></div>
     <div class="w-full h-12  flex items-center justify-between px-6 mt-1">
       <router-link to="/" class="text-gold no-underline">Mevn</router-link>
